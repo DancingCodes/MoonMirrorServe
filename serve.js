@@ -22,9 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const socket = require('socket.io')
 io = socket(ioServe, {
-    cors: {
-        origin: "*"
-    }
+    cors: true
 })
 
 io.on('connection', sock => {

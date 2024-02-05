@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'development') {
     // 本地
     const http = require('http')
     ioServe = http.createServer(serve).listen(3001, () => {
-        console.log("开发服务器启动成功辣")
+        console.log("Http开发服务器启动成功辣")
     });
 } else {
     // 线上
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
         key: fs.readFileSync('./ssl/moonmirrorapi.moonc.love.key'),
         cert: fs.readFileSync('./ssl/moonmirrorapi.moonc.love_bundle.crt')
     }, serve).listen(3001, () => {
-        console.log("开发服务器启动成功辣")
+        console.log("Https开发服务器启动成功辣")
     });
 }
 

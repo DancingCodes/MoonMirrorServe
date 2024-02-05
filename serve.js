@@ -1,14 +1,27 @@
 const express = require('express')
-
 const serve = express()
+let ioServe = null
 
-const http = require('http')
-const appHttp = http.createServer(serve).listen(3000, () => {
-    console.log("开发服务器启动成功辣")
-});
+const fs = require('fs')
+if (process.env.NODE_ENV === 'development') {
+    // 本地
+    const http = require('http')
+    ioServe = http.createServer(serve).listen(3001, () => {
+        console.log("开发服务器启动成功辣")
+    });
+} else {
+    // 线上
+    const https = require('https')
+    ioServe = https.createServer({
+        key: fs.readFileSync('./ssl/moonmirrorapi.moonc.love.key'),
+        cert: fs.readFileSync('./ssl/moonmirrorapi.moonc.love_bundle.crt')
+    }, serve).listen(3001, () => {
+        console.log("开发服务器启动成功辣")
+    });
+}
 
 const socket = require('socket.io')
-io = socket(appHttp, {
+io = socket(ioServe, {
     cors: {
         origin: "*"
     }
